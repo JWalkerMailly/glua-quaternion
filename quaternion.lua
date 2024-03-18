@@ -4,7 +4,6 @@
 -- @module Quaternion
 -- @author WLKRE
 --
-
 local QUATERNION = {
 	__epsl = 0.0001,
 	__lerp = 0.9995,
@@ -27,7 +26,7 @@ end
 -- Create a new quaternion.
 -- If a single argument 'w' is provided, it assumes a quaternion object was passed in to copy the
 -- values from. If 'w' and 'x', 'y', and 'z' are provided, it creates a quaternion with the provided values.
--- @param  w (Optional) The real part of the quaternion.
+-- @param  w (Optional) The 'w' component of the quaternion or a Quaternion object to copy.
 -- @param  x (Optional) The 'x' component of the quaternion.
 -- @param  y (Optional) The 'y' component of the quaternion.
 -- @param  z (Optional) The 'z' component of the quaternion.
@@ -36,8 +35,8 @@ end
 function Quaternion(w --[[ 1.0 ]], x --[[ 0.0 ]], y --[[ 0.0 ]], z --[[ 0.0 ]])
 
 	return IsQuaternion(w)
-		&& setmetatable({ w = w.w || 1.0, x = w.x || 0.0, y = w.y || 0.0, z = w.z || 0.0 }, QUATERNION)
-		|| setmetatable({ w =   w || 1.0, x =   x || 0.0, y =   y || 0.0, z =   z || 0.0 }, QUATERNION);
+		&& setmetatable({ w = w.w, x = w.x, y = w.y, z = w.z }, QUATERNION)
+		|| setmetatable({ w = w || 1.0, x = x || 0.0, y = y || 0.0, z = z || 0.0 }, QUATERNION);
 end
 
 ---
@@ -51,14 +50,15 @@ end
 
 ---
 -- Set the values of the quaternion.
--- @param  w The 'w' component of the quaternion.
+-- @param  w The 'w' component of the quaternion or a Quaternion object to copy.
 -- @param  x The 'x' component of the quaternion.
 -- @param  y The 'y' component of the quaternion.
 -- @param  z The 'z' component of the quaternion.
 -- @return quaternion The modified quaternion.
 --
 function QUATERNION:Set(w, x, y, z)
-	self.w, self.x, self.y, self.z = w || self.w, x || self.x, y || self.y, z || self.z;
+	if (IsQuaternion(w)) then self.w, self.x, self.y, self.z = w.w, w.x, w.y, w.z;
+	                     else self.w, self.x, self.y, self.z = w, x, y, z; end
 	return self;
 end
 
@@ -363,7 +363,7 @@ end
 -- @return quaternion The interpolated quaternion.
 --
 function QUATERNION:LerpDomain(q, alphaStart, alphaEnd)
-	return self:MulScalar(alphaStart):Add(Quaternion(q):MulScalar(alphaEnd));
+	return self:MulScalar(alphaStart):Add(Quaternion(q):MulScalar(alphaEnd)):Normalize();
 end
 
 ---

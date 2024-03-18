@@ -15,6 +15,7 @@ Quaternions are used to represent rotations. They are compact, don't suffer from
 ## Setters
 
 <code>quaternion</code> <code>QUATERNION:<b>Set(</b><i>w, x, y, z</i><b>)</b></code></br>
+<code>quaternion</code> <code>QUATERNION:<b>Set(</b><i>quaternion</i><b>)</b></code></br>
 <code>quaternion</code> <code>QUATERNION:<b>SetAngle(</b><i>angle</i><b>)</b></code></br>
 <code>quaternion</code> <code>QUATERNION:<b>SetMatrix(</b><i>matrix</i><b>)</b></code></br>
 <code>quaternion</code> <code>QUATERNION:<b>SetAngleAxis(</b><i>theta, axis</i><b>)</b></code></br>
