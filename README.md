@@ -1,6 +1,6 @@
 # Quaternion
 
-Quaternions are used to represent rotations. They are compact, don't suffer from gimbal lock and can easily be interpolated. They are based on complex numbers and are not easy to understand intuitively. You almost never access or modify individual Quaternion components (x,y,z,w); most often you would just take existing rotations (e.g. from the *Setters*) and use them to construct new rotations (e.g. to smoothly interpolate between two rotations). Note that order of operation matters.
+Quaternions are used to represent rotations. They are compact, don't suffer from gimbal lock and can easily be interpolated. They are based on complex numbers and are not easy to understand intuitively. You almost never access or modify individual Quaternion components (w,x,y,z); most often you would just take existing rotations (e.g. from the *Setters*) and use them to construct new rotations (e.g. to smoothly interpolate between two rotations). Note that order of operation matters.
 
 ## Globals
 
