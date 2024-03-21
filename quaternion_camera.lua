@@ -5,7 +5,6 @@ local LAG_SPEED     = 5;
 local MOVE_SPEED    = 300;
 local LOOK_SPEED    = 3;
 local ROLL_SPEED    = 720;
-
 local position      = Vector();
 local positionLag   = Vector();
 local positionDelta = Vector();
@@ -56,5 +55,6 @@ hook.Add("CreateMove", "Quaternion.CreateMove", function(cmd)
 end);
 
 hook.Add("CalcView", "Quaternion.CalcView", function()
-	return GetConVar("quaternion_camera"):GetBool() && { origin = positionLag, angles = rotationLag:Angle(), drawviewer = true };
+	if (!GetConVar("quaternion_camera"):GetBool()) then return; end
+	return { origin = positionLag, angles = rotationLag:Angle(), drawviewer = true };
 end);
